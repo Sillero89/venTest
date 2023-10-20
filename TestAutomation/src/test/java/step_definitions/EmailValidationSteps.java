@@ -1,6 +1,7 @@
 package step_definitions;
 
 import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -17,17 +18,18 @@ public class EmailValidationSteps {
     private ContactFormPage contactFormPage;
     private ResultPage resultPage;
 
-    @Given("a web browser is at the Contact form page")
-    public void a_web_browser_is_at_the_contact_form_page() {
+    @Before("@EmailFeature")
+    public void setUp() {
         driver = new FirefoxDriver();
         contactFormPage = new ContactFormPage(driver);
         resultPage = new ResultPage(driver);
-        env = new CommonFunctions();
-        env.openWebPage(driver);
+        env = new CommonFunctions(driver);
     }
 
-    @Given("^(?:email missing username data|email missing server data|email missing domain data)$")
-    public void none() {    }
+    @Given("^(?:web browser is at the Contact form page|email missing username data|email missing server data|email missing domain data)$")
+    public void web_browser_is_at_the_contact_form_page() {
+        env.openWebPage(driver);
+    }
 
     @And("the user enters {string} into email")
     public void the_user_enters_into_email(String string) {
@@ -35,7 +37,7 @@ public class EmailValidationSteps {
     }
     @When("the user submit the form")
     public void the_user_submit_the_form() {
-
+        contactFormPage.clickSubmit();
     }
     @Then("element warning {string} is shown")
     public void element_warning_is_shown(String string) {
@@ -46,8 +48,6 @@ public class EmailValidationSteps {
     public void result_page_shows_message(String string) {
 
     }
-    @After("@LastScenario")
-    public void tearDown() {
-        driver.quit();
-    }
+    @After("@EmailFeature")
+    public void tearDown() { this.driver.quit();}
 }

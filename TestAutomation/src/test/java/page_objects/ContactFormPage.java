@@ -12,6 +12,8 @@ public class ContactFormPage {
 
     private WebDriver driver;
     private CommonFunctions env;
+    public String validEmail = "user@server.de";
+    public String message = "my email is user@server.de";
 
     @FindBy(how = How.XPATH, using = "//*[@id=\"email\"]")
     WebElement inputEmail;
@@ -27,22 +29,23 @@ public class ContactFormPage {
     public ContactFormPage(WebDriver driver){
         this.driver = driver;
         PageFactory.initElements(driver, this);
+        env = new CommonFunctions(this.driver);
     }
     public void setPhoneNumber(String number){
         inputPhoneNumber.clear();
-        inputPhoneNumber.sendKeys(number + Keys.ENTER);
+        inputPhoneNumber.sendKeys(number + Keys.TAB);
     }
     public void setEmail(String email){
         inputEmail.clear();
-        inputEmail.sendKeys(email + Keys.ENTER);
+        inputEmail.sendKeys(email + Keys.TAB);
     }
     public void setAge(String age){
         inputAge.clear();
-        inputAge.sendKeys(age + Keys.ENTER);
+        inputAge.sendKeys(age + Keys.TAB);
     }
     public void setMessage(String message){
         inputMessage.clear();
-        inputMessage.sendKeys(message + Keys.ENTER);
+        inputMessage.sendKeys(message + Keys.TAB);
     }
     public void clickSubmit(){
         buttonSubmit.click();

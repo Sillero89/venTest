@@ -20,7 +20,7 @@ public class ResultPage {
 
     public ResultPage(WebDriver driver){
         this.driver = driver;
-        env = new CommonFunctions();
+        env = new CommonFunctions(this.driver);
         PageFactory.initElements(driver, this);
     }/*
     public CarSearchResultPage(WebDriver driver){
