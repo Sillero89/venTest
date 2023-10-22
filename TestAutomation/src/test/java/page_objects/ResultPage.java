@@ -14,7 +14,6 @@ public class ResultPage {
 
     private WebDriver driver;
     private CommonFunctions env;
-
     @FindBy(how = How.XPATH, using = "/html/body/hp-app-root/hp-home-container/hp-home/hp-search-widget-container/hp-search-widget/div/hp-search-widget-tabs-container/button[2]/hp-search-widget-tab/div")
     WebElement menuMainCarRent;
 
@@ -22,23 +21,24 @@ public class ResultPage {
         this.driver = driver;
         env = new CommonFunctions(this.driver);
         PageFactory.initElements(driver, this);
-    }/*
-    public CarSearchResultPage(WebDriver driver){
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
     }
-    public boolean resultsPageVisible(){
-        return menuOptionTravels.getText().compareToIgnoreCase("alquiler de coches")==0;
-    }
+    public boolean searchText(String text){
+        boolean found = false;
 
-    private void selectCountry(String country){
-        List<WebElement> countryElements = panelCountryAirport.findElements(By.className("classNameCountriesList"));
-        for(WebElement element : countryElements){
-            List<WebElement> spanCountry = element.findElements(By.cssSelector("span"));
-            if(country.compareToIgnoreCase(spanCountry.get(0).getText()) == 0){
-                spanCountry.get(0).click();
-                break;
+        List<WebElement> messages = driver.findElements(By.cssSelector("p"));
+
+        if(messages.size()==0){
+            if(driver.findElement(By.tagName("body")).getText().compareTo(text) == 0){
+                found = true;
+            }
+        }else{
+            for(WebElement message : messages){
+                if(message.getText().compareTo(text) == 0){
+                    found = true;
+                    break;
+                }
             }
         }
-    }*/
+        return found;
+    }
 }

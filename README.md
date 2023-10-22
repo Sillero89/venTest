@@ -24,7 +24,7 @@ venTest/TestAutomation:
 	- How to execute:
 		1. Download repository to local directory.
 		2. Open project with an IDE (e.g IntelliJ IDEA)
-		3. Run test cases
+		3. Run the starter: FunctionalTestSuit
 
 		Alternatively:
 		1. Open a console and navigate to venTest/TestAutomation

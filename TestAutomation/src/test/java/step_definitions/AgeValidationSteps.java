@@ -7,14 +7,11 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import library.CommonFunctions;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import page_objects.ContactFormPage;
 import page_objects.ResultPage;
-
-import static org.assertj.core.api.ClassBasedNavigableListAssert.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 
 public class AgeValidationSteps {
@@ -30,7 +27,8 @@ public class AgeValidationSteps {
         resultPage = new ResultPage(driver);
         env = new CommonFunctions(driver);
     }
-    @Given("^(?:a web browser is at the Contact form page|Age incorrect data)$")
+    @Given("^(?:a web browser is at the Contact form page|" +
+            "Age incorrect data)$")
     public void a_web_browser_is_at_the_contact_form_page() {
         env.openWebPage(driver);
     }
@@ -53,16 +51,12 @@ public class AgeValidationSteps {
     }
     @Then("the form is not submitted")
     public void the_form_is_not_submitted() {
-
+        assertThat(contactFormPage.pageVisible()).isEqualTo(true);;
     }
     @Then("the Result page shows the age {string}")
     public void the_Result_page_shows_the_age(String age) {
-     // assertThat( resultPage.Age.isEqualTo(true);
-
-
+        assertThat( resultPage.searchText(age)).isEqualTo(true);
     }
-
     @After("@AgeFeature")
-    public void tearDown() { this.driver.quit();}
-
+    public void tearDown() { driver.quit();}
 }

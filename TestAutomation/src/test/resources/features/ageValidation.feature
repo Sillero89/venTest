@@ -18,4 +18,4 @@ Feature: Age Validation
     And the user enters a message
     And the user enters "20" into age
     When the user submit form
-    Then the Result page shows the age "20"
+    Then the Result page shows the age "Age: 20"

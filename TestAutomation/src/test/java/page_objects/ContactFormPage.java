@@ -1,9 +1,7 @@
 
 package page_objects;
 import library.CommonFunctions;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 import org.openqa.selenium.support.PageFactory;
@@ -31,6 +29,9 @@ public class ContactFormPage {
         PageFactory.initElements(driver, this);
         env = new CommonFunctions(this.driver);
     }
+    public boolean pageVisible( ){
+        return inputEmail.isDisplayed();
+    }
     public void setPhoneNumber(String number){
         inputPhoneNumber.clear();
         inputPhoneNumber.sendKeys(number + Keys.TAB);
@@ -38,6 +39,15 @@ public class ContactFormPage {
     public void setEmail(String email){
         inputEmail.clear();
         inputEmail.sendKeys(email + Keys.TAB);
+    }
+    public String emailValidationMessage( ){
+        String data;
+        try{
+            data = inputEmail.getAttribute("validationMessage");
+        }catch (NotFoundException e){
+            data = "NoMessage";
+        }
+        return data;
     }
     public void setAge(String age){
         inputAge.clear();
@@ -49,6 +59,6 @@ public class ContactFormPage {
     }
     public void clickSubmit(){
         buttonSubmit.click();
-        env.sleep(this.driver,env.ONE_SEC);
+        env.sleep(driver,env.ONE_SEC);
     }
 }
